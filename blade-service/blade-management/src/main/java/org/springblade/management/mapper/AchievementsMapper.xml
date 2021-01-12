@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.management.mapper.AchievementsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="achievementsResultMap" type="org.springblade.management.entity.Achievements">
+        <id column="id" property="id"/>
+        <result column="project_amount" property="projectAmount"/>
+        <result column="project_completion" property="projectCompletion"/>
+        <result column="project_defect" property="projectDefect"/>
+        <result column="project_modify" property="projectModify"/>
+        <result column="project_plan" property="projectPlan"/>
+        <result column="create_time" property="createTime"/>
+        <result column="remark" property="remark"/>
+        <result column="staff_id" property="staffId"/>
+        <result column="staff_name" property="staffName"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectAchievementsPage" resultMap="achievementsResultMap">
+        select * from blade_achievements where is_deleted = 0
+    </select>
+
+</mapper>

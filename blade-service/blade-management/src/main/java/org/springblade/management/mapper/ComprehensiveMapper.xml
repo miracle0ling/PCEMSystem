@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.management.mapper.ComprehensiveMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="comprehensiveResultMap" type="org.springblade.management.entity.Comprehensive">
+        <id column="id" property="id"/>
+        <result column="create_time" property="createTime"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="staff_id" property="staffId"/>
+        <result column="staff_name" property="staffName"/>
+        <result column="staff_vocation" property="staffVocation"/>
+        <result column="staff_salary" property="staffSalary"/>
+    </resultMap>
+
+
+    <select id="selectComprehensivePage" resultMap="comprehensiveResultMap">
+        select * from blade_comprehensive where is_deleted = 0
+    </select>
+
+</mapper>

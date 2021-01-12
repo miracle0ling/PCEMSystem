@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.management.mapper.VocationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="vocationResultMap" type="org.springblade.management.entity.Vocation">
+        <id column="id" property="id"/>
+        <result column="staff_name" property="staffName"/>
+        <result column="staff_id" property="staffId"/>
+        <result column="reason" property="reason"/>
+        <result column="begin_time" property="beginTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="status" property="status"/>
+        <result column="type" property="type"/>
+        <result column="remark" property="remark"/>
+        <result column="is_deleted" property="isDeleted"/>
+    </resultMap>
+
+
+    <select id="selectVocationPage" resultMap="vocationResultMap">
+        select * from blade_vocation where is_deleted = 0
+    </select>
+
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.springblade.management.mapper.StaffMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="staffResultMap" type="org.springblade.management.entity.Staff">
+        <id column="id" property="id"/>
+        <result column="is_deleted" property="isDeleted"/>
+        <result column="staff_name" property="staffName"/>
+        <result column="base_salary" property="baseSalary"/>
+        <result column="performance_salary" property="performanceSalary"/>
+        <result column="marriage_leave" property="marriageLeave"/>
+        <result column="maternity_leave" property="maternityLeave"/>
+        <result column="overtime_leave" property="overtimeLeave"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
+    </resultMap>
+
+
+    <select id="selectStaffPage" resultMap="staffResultMap">
+        select * from blade_staff where is_deleted = 0
+    </select>
+
+    <insert id="addNew" parameterType="org.springblade.management.entity.Staff">
+        insert into blade_staff
+            (staff_name,base_salary,performance_salary,marriage_leave,maternity_leave,overtime_leave,user_id,role_id)
+        values
+            (#{staffName},#{baseSalary},#{performanceSalary},#{marriageLeave},#{maternityLeave},#{overtimeLeave},(SELECT LAST_INSERT_ID()),#{roleId})
+    </insert>
+
+</mapper>
