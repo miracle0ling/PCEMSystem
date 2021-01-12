@@ -1,16 +1,11 @@
- <p align="center">
-      <img src="https://img.shields.io/badge/Release-V2.8.0-green.svg" alt="Downloads">
-      <img src="https://img.shields.io/badge/JDK-1.8+-green.svg" alt="Build Status">
-  <img src="https://img.shields.io/badge/license-Apache%202-blue.svg" alt="Build Status">
-   <img src="https://img.shields.io/badge/Spring%20Cloud-Hoxton.SR8-blue.svg" alt="Coverage Status">
-   <img src="https://img.shields.io/badge/Spring%20Boot-2.2.11.RELEASE-blue.svg" alt="Downloads">
-   <a target="_blank" href="https://bladex.vip">
-   <img src="https://img.shields.io/badge/Author-Small%20Chill-ff69b4.svg" alt="Downloads">
- </a>
- <a target="_blank" href="https://bladex.vip">
-   <img src="https://img.shields.io/badge/Copyright%20-@BladeX-%23ff3f59.svg" alt="Downloads">
- </a>
- </p>  
+#人员综合管理评价系统——基于开源bladex实现
+    此系统可以用作公司内部人员评价管理，当前作为作者大学毕业设计软件系统。
+此产品可以用于员工定期填写近期工作内容（包括各项指标），通过公司拟定的规则计算出绩效。同时还可以实现请假/加班流程审批，最终可以通过当前绩效和请假/加班情况计算出每个员工的应发工资。
+
+
+
+## Bladex官网
+* 官网地址：[https://bladex.vip](https://bladex.vip)
 
 ## SpringBlade微服务开发平台
 * 采用前后端分离的模式，前端开源两个框架：[Sword](https://gitee.com/smallc/Sword) (基于 React、Ant Design)、[Saber](https://gitee.com/smallc/Saber) (基于 Vue、Element-UI)
@@ -43,6 +38,7 @@ SpringBlade
 ├── blade-service -- 业务模块
 ├    ├── blade-desk -- 工作台模块 
 ├    ├── blade-log -- 日志模块 
+├    ├── blade-log -- 主要功能模块
 ├    ├── blade-system -- 系统模块 
 ├    └── blade-user -- 用户模块 
 ├── blade-service-api -- 业务模块api封装
@@ -52,135 +48,23 @@ SpringBlade
 └──  └── blade-user-api -- 用户api 
 ```
 
-## 官网
-* 官网地址：[https://bladex.vip](https://bladex.vip)
-* 问答社区：[https://sns.bladex.vip](https://sns.bladex.vip)
-* 会员计划：[SpringBlade会员计划](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade会员计划)
-* 交流一群：`477853168`(满)
-* 交流二群：`751253339`(满)
-* 交流三群：`784729540`(满)
-* 交流四群：`1034621754`(满)
-* 交流五群：`946350912`
+##主要功能模块划分
+此系统主要功能可以拆分为五个系统模块以优先级顺序排列为
+- 用于控制不同级别的用户登录系统呈现出不同的界面以及提供不同的功能。  
+- 目前用户等级可分为四种：普通员工、经理/总监、人事、管理员
 
-## 在线演示
-* Saber-基于Vue：[https://saber.bladex.vip](https://saber.bladex.vip)
-* Sword-基于React：[https://sword.bladex.vip](https://sword.bladex.vip)
-* Archer-全能代码生成系统：[https://archer.bladex.vip](https://archer.bladex.vip)
-* Caster-数据大屏展示系统：[https://data.avuejs.com](https://data.avuejs.com)
+1. ###员工管理/工资管理模块
+- 此模块仅人事和管理员可进入，用于添加/删除/修改人员信息，填写人员基础工资，修改绩效评定标准。 
+2. ###员工绩效填写/审核/计算模块
+- 普通员工进入此模块填写自己的各项指标和工作内容，同时可以查看自己最终绩效评价。  
+- 经理/总监进入此模块除填写内容外还可以对下级进行审批，最终可以使普通员工的填写内容通过或者通知修改（也可以直接修改）。
+人事进入此模块同普通员工。  
+- 管理员进入此模块同经理/总监。
+4. ###员工请假/加班填写/审核模块
+- 普通员工进入此模块填写自己的请假/加班原因，时间，并可以查看是否通过。
+- 经理/总监进入此模块除填写内容外还可以对下级进行审批，最终可以使普通员工的填写内容通过或者通知修改（也可以直接修改）。
+- 人事进入此模块同普通员工。
+- 管理员进入此模块同经理/总监。
 
-## 技术文档
-* [SpringBlade开发手册一览](https://gitee.com/smallc/SpringBlade/wikis/SpringBlade开发手册)
-* [常见问题集锦](https://sns.bladex.vip/article-14966.html)
-
-## 项目地址
-* 后端Gitee地址：[https://gitee.com/smallc/SpringBlade](https://gitee.com/smallc/SpringBlade)
-* 后端Github地址：[https://github.com/chillzhuang/SpringBlade](https://github.com/chillzhuang/SpringBlade)
-* 后端SpringBoot版：[https://gitee.com/smallc/SpringBlade/tree/2.0-boot/](https://gitee.com/smallc/SpringBlade/tree/2.0-boot/)
-* 前端框架Sword(基于React)：[https://gitee.com/smallc/Sword](https://gitee.com/smallc/Sword)
-* 前端框架Saber(基于Vue)：[https://gitee.com/smallc/Saber](https://gitee.com/smallc/Saber)
-* 核心框架项目地址：[https://github.com/chillzhuang/blade-tool](https://github.com/chillzhuang/blade-tool)
-
-# 开源协议
-Apache Licence 2.0 （[英文原文](http://www.apache.org/licenses/LICENSE-2.0.html)）
-Apache Licence是著名的非盈利开源组织Apache采用的协议。该协议和BSD类似，同样鼓励代码共享和尊重原作者的著作权，同样允许代码修改，再发布（作为开源或商业软件）。
-需要满足的条件如下：
-* 需要给代码的用户一份Apache Licence
-* 如果你修改了代码，需要在被修改的文件中说明。
-* 在延伸的代码中（修改和有源代码衍生的代码中）需要带有原来代码中的协议，商标，专利声明和其他原来作者规定需要包含的说明。
-* 如果再发布的产品中包含一个Notice文件，则在Notice文件中需要带有Apache Licence。你可以在Notice中增加自己的许可，但不可以表现为对Apache Licence构成更改。
-Apache Licence也是对商业应用友好的许可。使用者也可以在需要的时候修改代码来满足需要并作为开源或商业产品发布/销售。
-
-## 用户权益
-* 允许免费用于学习、毕设、公司项目、私活等。
-* 对未经过授权和不遵循 Apache 2.0 协议二次开源或者商业化我们将追究到底。
-* 参考请注明：参考自 SpringBlade：https://gitee.com/smallc/SpringBlade 。另请遵循 Apache 2.0 协议。
-* `注意`：若禁止条款被发现有权追讨 **19999** 的授权费。
-
-# 界面
-
-## [BladeX](https://bladex.vip/#/vip) 工作流一览
-<table>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/bladex-flow1.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/bladex-flow2.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/bladex-flow3.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/bladex-flow4.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/bladex-flow5.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/bladex-flow6.png"/></td>
-    </tr>
-</table>
-
-## [Sword](https://gitee.com/smallc/Sword) 界面一览
-<table>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-main.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-menu.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-menu-edit.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-menu-icon.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-role.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-user.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-dict.png "/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-log.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-locale-cn.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/sword-locale-us.png"/></td>
-    </tr>
-</table>
-
-## [Saber](https://gitee.com/smallc/Saber) 界面一览
-<table>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/saber-user.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/saber-role.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/saber-dict.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/saber-dict-select.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/saber-log.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/saber-code.png"/></td>
-    </tr>
-</table>
-
-## 监控界面一览
-<table>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-k8s1.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-k8s2.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-grafana.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-harbor.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-traefik.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-traefik-health.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-nacos.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-sentinel.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-admin1.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-admin2.png"/></td>
-    </tr>
-    <tr>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-swagger1.png"/></td>
-        <td><img src="https://gitee.com/smallc/SpringBlade/raw/master/pic/springblade-swagger2.png"/></td>
-    </tr>
-</table>
-
-## 关注我们
-![](https://images.gitee.com/uploads/images/2019/0330/065148_f0ada806_410595.jpeg)
+5. ###工资核算功能模块
+- 此模块仅人事和管理员可进入，可以查看员工绩效评定情况和加班/请假情况，可以选定员工并意见计算工资。
