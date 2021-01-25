@@ -20,6 +20,8 @@ import org.springblade.management.vo.VocationVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  *  服务类
  *
@@ -36,5 +38,14 @@ public interface IVocationService extends IService<Vocation> {
 	 * @return
 	 */
 	IPage<VocationVO> selectVocationPage(IPage<VocationVO> page, VocationVO vocation);
+
+	/**
+	 * 通过id集合查找
+	 *
+	 * @param ids
+	 * @param type
+	 * @return
+	 */
+	Boolean reviewByIds(List<Long> ids, Integer type);
 
 }

@@ -15,6 +15,8 @@
  */
 package org.springblade.management.mapper;
 
+import feign.Param;
+import org.mapstruct.Mapper;
 import org.springblade.management.entity.Vocation;
 import org.springblade.management.vo.VocationVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -27,6 +29,7 @@ import java.util.List;
  * @author Blade
  * @since 2021-01-08
  */
+@Mapper
 public interface VocationMapper extends BaseMapper<Vocation> {
 
 	/**
@@ -37,5 +40,16 @@ public interface VocationMapper extends BaseMapper<Vocation> {
 	 * @return
 	 */
 	List<VocationVO> selectVocationPage(IPage page, VocationVO vocation);
+
+	/**
+	 * 通过id集合查找
+	 *
+	 * @param ids
+	 * @param type
+	 * @return
+	 */
+	Integer reviewByIds(@Param("ids") List<Long> ids, @Param("type") Integer type);
+
+
 
 }

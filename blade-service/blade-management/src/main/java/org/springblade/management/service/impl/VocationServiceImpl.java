@@ -20,8 +20,11 @@ import org.springblade.management.vo.VocationVO;
 import org.springblade.management.mapper.VocationMapper;
 import org.springblade.management.service.IVocationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.List;
 
 /**
  *  服务实现类
@@ -32,9 +35,21 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 @Service
 public class VocationServiceImpl extends ServiceImpl<VocationMapper, Vocation> implements IVocationService {
 
+	@Autowired
+	private VocationMapper vocationMapper;
+
 	@Override
 	public IPage<VocationVO> selectVocationPage(IPage<VocationVO> page, VocationVO vocation) {
 		return page.setRecords(baseMapper.selectVocationPage(page, vocation));
+	}
+
+	@Override
+	public Boolean reviewByIds(List<Long> ids, Integer type) {
+		Integer num = vocationMapper.reviewByIds(ids, type);
+		if (num>=1){
+			return true;
+		}
+		return false;
 	}
 
 }

@@ -24,8 +24,11 @@ import javax.validation.Valid;
 
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.management.service.IStaffService;
+import org.springblade.system.user.feign.IUserClient;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.management.entity.Vocation;
@@ -48,6 +51,7 @@ import java.util.List;
 public class VocationController extends BladeController {
 
 	private IVocationService vocationService;
+	private IStaffService staffService;
 
 	/**
 	* 详情
@@ -61,7 +65,7 @@ public class VocationController extends BladeController {
 	}
 
 	/**
-	* 分页 
+	* 分页
 	*/
 	@GetMapping("/list")
     @ApiOperationSupport(order = 2)
@@ -72,7 +76,7 @@ public class VocationController extends BladeController {
 	}
 
 	/**
-	* 自定义分页 
+	* 自定义分页
 	*/
 	@GetMapping("/page")
     @ApiOperationSupport(order = 3)
@@ -83,7 +87,7 @@ public class VocationController extends BladeController {
 	}
 
 	/**
-	* 新增 
+	* 新增
 	*/
 	@PostMapping("/save")
     @ApiOperationSupport(order = 4)
@@ -93,7 +97,7 @@ public class VocationController extends BladeController {
 	}
 
 	/**
-	* 修改 
+	* 修改
 	*/
 	@PostMapping("/update")
     @ApiOperationSupport(order = 5)
@@ -103,18 +107,20 @@ public class VocationController extends BladeController {
 	}
 
 	/**
-	* 新增或修改 
+	* 新增或修改
 	*/
 	@PostMapping("/submit")
     @ApiOperationSupport(order = 6)
 	@ApiOperation(value = "新增或修改", notes = "传入vocation")
 	public R submit(@Valid @RequestBody Vocation vocation) {
+		Long userId = SecureUtil.getUserId();
+		vocation.setStaffId(userId);
 		return R.status(vocationService.saveOrUpdate(vocation));
 	}
 
-	
+
 	/**
-	* 删除 
+	* 删除
 	*/
 	@PostMapping("/remove")
     @ApiOperationSupport(order = 7)
@@ -123,5 +129,16 @@ public class VocationController extends BladeController {
 		return R.status(vocationService.removeByIds(Func.toLongList(ids)));
 	}
 
-	
+
+	/**
+	 * 审批
+	 */
+	@PostMapping("/review")
+	@ApiOperationSupport(order = 7)
+	@ApiOperation(value = "删除", notes = "传入ids")
+	public R review(@ApiParam(value = "主键集合", required = true) @RequestParam String ids,@RequestParam Integer type) {
+		return R.status(vocationService.reviewByIds(Func.toLongList(ids),type));
+	}
+
+
 }

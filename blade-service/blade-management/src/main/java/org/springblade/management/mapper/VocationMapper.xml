@@ -18,7 +18,16 @@
 
 
     <select id="selectVocationPage" resultMap="vocationResultMap">
-        select * from blade_vocation where is_deleted = 0
+        select *
+        from blade_vocation
+        where is_deleted = 0
     </select>
+
+    <update id="reviewByIds">
+        update blade_vocation set status = #{type} where id in
+        <foreach collection="ids" separator="," open="(" close=")" item="id">
+            #{id}
+        </foreach>
+    </update>
 
 </mapper>

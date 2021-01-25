@@ -46,4 +46,13 @@ public interface IStaffService extends BaseService<Staff> {
 	 */
 	Boolean addNew(Staff newStaff);
 
+	/**
+	 * 通过id查找员工信息
+	 *
+	 * @param page
+	 * @param staff
+	 * @return
+	 */
+	Staff selectById(Long staffid);
+
 }
