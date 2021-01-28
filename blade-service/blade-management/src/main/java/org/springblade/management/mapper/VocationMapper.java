@@ -51,5 +51,13 @@ public interface VocationMapper extends BaseMapper<Vocation> {
 	Integer reviewByIds(@Param("ids") List<Long> ids, @Param("type") Integer type);
 
 
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param vocation
+	 * @return
+	 */
+	List<Vocation> selectAll(Vocation vocation);
 
 }

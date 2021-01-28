@@ -16,9 +16,15 @@
 package org.springblade.management.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -34,54 +40,58 @@ import java.time.LocalDateTime;
 @ApiModel(value = "Vocation对象", description = "Vocation对象")
 public class Vocation implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-  private Long id;
-    /**
-     * 员工姓名
-     */
-    @ApiModelProperty(value = "员工姓名")
-    private String staffName;
-    /**
-     * 员工id
-     */
-    @ApiModelProperty(value = "员工id")
-    private Long staffId;
-    /**
-     * 原因
-     */
-    @ApiModelProperty(value = "原因")
-    private String reason;
-    /**
-     * 开始时间
-     */
-    @ApiModelProperty(value = "开始时间")
-    private LocalDateTime beginTime;
-    /**
-     * 结束时间
-     */
-    @ApiModelProperty(value = "结束时间")
-    private LocalDateTime endTime;
-    /**
-     * 状态1批准2未批准
-     */
-    @ApiModelProperty(value = "状态1批准2未批准")
-    private Integer status;
-    /**
-     * 类型1请假2加班
-     */
-    @ApiModelProperty(value = "类型1请假2加班")
-    private Integer type;
-    /**
-     * 附加说明（可以是图片）
-     */
-    @ApiModelProperty(value = "附加说明（可以是图片）")
-    private String remark;
-    /**
-     * 是否已删除
-     */
-    @ApiModelProperty(value = "是否已删除")
-    private Integer isDeleted;
+	@JsonSerialize(using = ToStringSerializer.class)
+	private Long id;
+	/**
+	 * 员工姓名
+	 */
+	@ApiModelProperty(value = "员工姓名")
+	private String staffName;
+	/**
+	 * 员工id
+	 */
+	@JsonSerialize(using = ToStringSerializer.class)
+	@ApiModelProperty(value = "员工id")
+	private Long staffId;
+	/**
+	 * 原因
+	 */
+	@ApiModelProperty(value = "原因")
+	private String reason;
+	/**
+	 * 开始时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@ApiModelProperty(value = "开始时间")
+	private LocalDateTime beginTime;
+	/**
+	 * 结束时间
+	 */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@ApiModelProperty(value = "结束时间")
+	private LocalDateTime endTime;
+	/**
+	 * 状态1批准2未批准
+	 */
+	@ApiModelProperty(value = "状态1批准2未批准")
+	private Integer status;
+	/**
+	 * 类型1请假2加班
+	 */
+	@ApiModelProperty(value = "类型1请假2加班")
+	private Integer type;
+	/**
+	 * 附加说明（可以是图片）
+	 */
+	@ApiModelProperty(value = "附加说明（可以是图片）")
+	private String remark;
+	/**
+	 * 是否已删除
+	 */
+	@ApiModelProperty(value = "是否已删除")
+	private Integer isDeleted;
 
 
 }

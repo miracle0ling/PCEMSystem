@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -55,11 +56,13 @@ public class Vocation implements Serializable {
     /**
      * 开始时间
      */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "开始时间")
     private LocalDateTime beginTime;
     /**
      * 结束时间
      */
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "结束时间")
     private LocalDateTime endTime;
     /**

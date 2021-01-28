@@ -52,4 +52,9 @@ public class VocationServiceImpl extends ServiceImpl<VocationMapper, Vocation> i
 		return false;
 	}
 
+	@Override
+	public List<Vocation> selectAll(Vocation vocation) {
+		return vocationMapper.selectAll(vocation);
+	}
+
 }

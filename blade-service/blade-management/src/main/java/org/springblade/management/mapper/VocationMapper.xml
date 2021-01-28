@@ -30,4 +30,31 @@
         </foreach>
     </update>
 
+    <select id="selectAll" resultMap="vocationResultMap" parameterType="org.springblade.management.entity.Vocation">
+        select * from blade_vocation
+        <where>
+            <if test="id!=null">
+                id = #{id}
+            </if>
+            <if test="staffName!=null">
+                and staff_name = #{staffName}
+            </if>
+            <if test="status!=null">
+                and status = #{status}
+            </if>
+            <if test="type!=null">
+                and type = #{type}
+            </if>
+            <if test="beginTime!=null">
+                and begin_time &gt;= #{beginTime}
+            </if>
+            <if test="endTime!=null">
+                and end_time &lt;= #{endTime}
+            </if>
+            <if test="staffId!=null">
+                and staff_id = #{staffId}
+            </if>
+        </where>
+    </select>
+
 </mapper>

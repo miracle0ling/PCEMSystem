@@ -15,6 +15,7 @@
  */
 package org.springblade.management.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
@@ -53,6 +54,7 @@ public class VocationController extends BladeController {
 	private IVocationService vocationService;
 	private IStaffService staffService;
 
+
 	/**
 	* 详情
 	*/
@@ -71,7 +73,32 @@ public class VocationController extends BladeController {
     @ApiOperationSupport(order = 2)
 	@ApiOperation(value = "分页", notes = "传入vocation")
 	public R<IPage<VocationVO>> list(Vocation vocation, Query query) {
-		IPage<Vocation> pages = vocationService.page(Condition.getPage(query), Condition.getQueryWrapper(vocation));
+
+		String userRole = SecureUtil.getUserRole();
+		if(userRole.equals("staff")){
+			Long userId = SecureUtil.getUserId();
+			vocation.setStaffId(userId);
+		}
+
+		Integer size = query.getSize();
+		Integer current = query.getCurrent();
+
+		List<Vocation> vocations = vocationService.selectAll(vocation);
+		IPage<Vocation> pages = new Page<>();
+		pages.setPages(vocations.size()/size);
+		pages.setTotal(vocations.size());
+		pages.setCurrent(current);
+
+		current = (current - 1) * size;
+		List<Vocation> result = vocationService.selectAll(vocation);
+		if (size + current < vocations.size()) {
+			result = vocations.subList(current, current + size);
+		} else {
+			result = vocations.subList(current, vocations.size());
+		}
+
+		pages.setRecords(result);
+
 		return R.data(VocationWrapper.build().pageVO(pages));
 	}
 
