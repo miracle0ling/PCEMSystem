@@ -15,6 +15,8 @@
  */
 package org.springblade.management.vo;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springblade.management.entity.Vocation;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -31,5 +33,4 @@ import io.swagger.annotations.ApiModel;
 @ApiModel(value = "VocationVO对象", description = "VocationVO对象")
 public class VocationVO extends Vocation {
 	private static final long serialVersionUID = 1L;
-
 }

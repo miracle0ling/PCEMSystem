@@ -20,21 +20,32 @@ import org.springblade.management.vo.AchievementsVO;
 import org.springblade.management.mapper.AchievementsMapper;
 import org.springblade.management.service.IAchievementsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.util.List;
 
 /**
  *  服务实现类
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-29
  */
 @Service
 public class AchievementsServiceImpl extends ServiceImpl<AchievementsMapper, Achievements> implements IAchievementsService {
 
+	@Autowired
+	private AchievementsMapper achievementsMapper;
+
 	@Override
 	public IPage<AchievementsVO> selectAchievementsPage(IPage<AchievementsVO> page, AchievementsVO achievements) {
 		return page.setRecords(baseMapper.selectAchievementsPage(page, achievements));
+	}
+
+	@Override
+	public List<Achievements> selectAll(Achievements achievements) {
+		return achievementsMapper.selectAll(achievements);
 	}
 
 }

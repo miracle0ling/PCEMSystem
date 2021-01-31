@@ -20,11 +20,13 @@ import org.springblade.management.vo.AchievementsVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  *  服务类
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-29
  */
 public interface IAchievementsService extends IService<Achievements> {
 
@@ -36,5 +38,14 @@ public interface IAchievementsService extends IService<Achievements> {
 	 * @return
 	 */
 	IPage<AchievementsVO> selectAchievementsPage(IPage<AchievementsVO> page, AchievementsVO achievements);
+
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param achievements
+	 * @return
+	 */
+	List<Achievements> selectAll(Achievements achievements);
 
 }

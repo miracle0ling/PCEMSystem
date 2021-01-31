@@ -23,7 +23,7 @@ import lombok.EqualsAndHashCode;
  * 数据传输对象实体类
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-29
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

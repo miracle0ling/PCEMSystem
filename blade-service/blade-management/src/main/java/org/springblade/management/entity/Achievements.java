@@ -16,18 +16,23 @@
 package org.springblade.management.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import java.io.Serializable;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * 实体类
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-29
  */
 @Data
 @TableName("blade_achievements")
@@ -36,6 +41,8 @@ public class Achievements implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+	@JsonSerialize(using = ToStringSerializer.class)
+  @TableId(value = "id", type = IdType.AUTO)
   private Long id;
     /**
      * 项目数量
@@ -75,6 +82,7 @@ public class Achievements implements Serializable {
     /**
      * 员工id
      */
+	@JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "员工id")
     private Long staffId;
     /**
@@ -82,6 +90,21 @@ public class Achievements implements Serializable {
      */
     @ApiModelProperty(value = "员工姓名")
     private String staffName;
+    /**
+     * 是否已删除
+     */
+    @ApiModelProperty(value = "是否已删除")
+    private Integer isDeleted;
+    /**
+     * 评分
+     */
+    @ApiModelProperty(value = "评分")
+    private Integer score;
+    /**
+     * 评级
+     */
+    @ApiModelProperty(value = "评级")
+    private String rating;
 
 
 }

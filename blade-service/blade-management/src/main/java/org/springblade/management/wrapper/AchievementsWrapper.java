@@ -25,7 +25,7 @@ import org.springblade.management.vo.AchievementsVO;
  * 包装类,返回视图层所需的字段
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-29
  */
 public class AchievementsWrapper extends BaseEntityWrapper<Achievements, AchievementsVO>  {
 

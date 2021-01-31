@@ -25,7 +25,7 @@ import java.util.List;
  *  Mapper 接口
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-29
  */
 public interface AchievementsMapper extends BaseMapper<Achievements> {
 
@@ -37,5 +37,14 @@ public interface AchievementsMapper extends BaseMapper<Achievements> {
 	 * @return
 	 */
 	List<AchievementsVO> selectAchievementsPage(IPage page, AchievementsVO achievements);
+
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param achievements
+	 * @return
+	 */
+	List<Achievements> selectAll(Achievements achievements);
 
 }

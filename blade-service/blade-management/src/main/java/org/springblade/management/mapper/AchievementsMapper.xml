@@ -15,11 +15,37 @@
         <result column="staff_id" property="staffId"/>
         <result column="staff_name" property="staffName"/>
         <result column="is_deleted" property="isDeleted"/>
+        <result column="score" property="score"/>
+        <result column="rating" property="rating"/>
     </resultMap>
 
 
     <select id="selectAchievementsPage" resultMap="achievementsResultMap">
-        select * from blade_achievements where is_deleted = 0
+        select *
+        from blade_achievements
+        where is_deleted = 0
+    </select>
+
+    <select id="selectAll" resultMap="achievementsResultMap"
+            parameterType="org.springblade.management.entity.Achievements">
+        select * from blade_achievements
+        <where>
+            <if test="id!=null">
+                id = #{id}
+            </if>
+            <if test="staffId!=null">
+                and staff_id = #{staffId}
+            </if>
+            <if test="staffName!=null">
+                and staff_name = #{staffName}
+            </if>
+            <if test="score!=null">
+                and score = #{score}
+            </if>
+            <if test="rating!=null">
+                and rating = #{rating}
+            </if>
+        </where>
     </select>
 
 </mapper>

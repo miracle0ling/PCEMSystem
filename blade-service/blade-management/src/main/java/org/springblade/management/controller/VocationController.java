@@ -37,6 +37,8 @@ import org.springblade.management.vo.VocationVO;
 import org.springblade.management.wrapper.VocationWrapper;
 import org.springblade.management.service.IVocationService;
 import org.springblade.core.boot.ctrl.BladeController;
+
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,7 +92,7 @@ public class VocationController extends BladeController {
 		pages.setCurrent(current);
 
 		current = (current - 1) * size;
-		List<Vocation> result = vocationService.selectAll(vocation);
+		List<Vocation> result = new ArrayList<>();
 		if (size + current < vocations.size()) {
 			result = vocations.subList(current, current + size);
 		} else {
@@ -140,8 +142,10 @@ public class VocationController extends BladeController {
     @ApiOperationSupport(order = 6)
 	@ApiOperation(value = "新增或修改", notes = "传入vocation")
 	public R submit(@Valid @RequestBody Vocation vocation) {
-		Long userId = SecureUtil.getUserId();
-		vocation.setStaffId(userId);
+		if (vocation.getStaffId()==null){
+			Long userId = SecureUtil.getUserId();
+			vocation.setStaffId(userId);
+		}
 		return R.status(vocationService.saveOrUpdate(vocation));
 	}
 
