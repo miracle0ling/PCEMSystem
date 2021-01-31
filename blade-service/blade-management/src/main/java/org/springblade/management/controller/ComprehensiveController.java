@@ -24,6 +24,7 @@ import javax.validation.Valid;
 
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
+import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ import java.util.List;
  *  控制器
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-31
  */
 @RestController
 @AllArgsConstructor
@@ -62,18 +63,23 @@ public class ComprehensiveController extends BladeController {
 	}
 
 	/**
-	* 分页 
+	* 分页
 	*/
 	@GetMapping("/list")
     @ApiOperationSupport(order = 2)
 	@ApiOperation(value = "分页", notes = "传入comprehensive")
 	public R<IPage<ComprehensiveVO>> list(Comprehensive comprehensive, Query query) {
+		String userRole = SecureUtil.getUserRole();
+		if(userRole.equals("staff")){
+			Long userId = SecureUtil.getUserId();
+			comprehensive.setStaffId(userId);
+		}
 		IPage<Comprehensive> pages = comprehensiveService.page(Condition.getPage(query), Condition.getQueryWrapper(comprehensive));
 		return R.data(ComprehensiveWrapper.build().pageVO(pages));
 	}
 
 	/**
-	* 自定义分页 
+	* 自定义分页
 	*/
 	@GetMapping("/page")
     @ApiOperationSupport(order = 3)
@@ -84,7 +90,7 @@ public class ComprehensiveController extends BladeController {
 	}
 
 	/**
-	* 新增 
+	* 新增
 	*/
 	@PostMapping("/save")
     @ApiOperationSupport(order = 4)
@@ -94,7 +100,7 @@ public class ComprehensiveController extends BladeController {
 	}
 
 	/**
-	* 修改 
+	* 修改
 	*/
 	@PostMapping("/update")
     @ApiOperationSupport(order = 5)
@@ -104,18 +110,18 @@ public class ComprehensiveController extends BladeController {
 	}
 
 	/**
-	* 新增或修改 
+	* 新增或修改
 	*/
 	@PostMapping("/submit")
     @ApiOperationSupport(order = 6)
 	@ApiOperation(value = "新增或修改", notes = "传入comprehensive")
 	public R submit(@Valid @RequestBody Comprehensive comprehensive) {
-		return R.status(comprehensiveService.saveOrUpdate(comprehensive));
+		return R.status(comprehensiveService.generateSalary());
 	}
 
-	
+
 	/**
-	* 删除 
+	* 删除
 	*/
 	@PostMapping("/remove")
     @ApiOperationSupport(order = 7)
@@ -124,5 +130,5 @@ public class ComprehensiveController extends BladeController {
 		return R.status(comprehensiveService.deleteLogic(Func.toLongList(ids)));
 	}
 
-	
+
 }

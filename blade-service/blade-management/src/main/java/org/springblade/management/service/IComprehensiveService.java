@@ -20,11 +20,13 @@ import org.springblade.management.vo.ComprehensiveVO;
 import org.springblade.core.mp.base.BaseService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
+import java.util.List;
+
 /**
  *  服务类
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-31
  */
 public interface IComprehensiveService extends BaseService<Comprehensive> {
 
@@ -36,5 +38,14 @@ public interface IComprehensiveService extends BaseService<Comprehensive> {
 	 * @return
 	 */
 	IPage<ComprehensiveVO> selectComprehensivePage(IPage<ComprehensiveVO> page, ComprehensiveVO comprehensive);
+
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param comprehensive
+	 * @return
+	 */
+	Boolean generateSalary();
 
 }

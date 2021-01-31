@@ -15,22 +15,21 @@
  */
 package org.springblade.management.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
+import org.springblade.core.mp.base.BaseEntity;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.springblade.core.mp.base.BaseEntity;
-
-import java.math.BigDecimal;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 实体类
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-31
  */
 @Data
 @TableName("blade_comprehensive")
@@ -62,6 +61,11 @@ public class Comprehensive extends BaseEntity {
      */
     @ApiModelProperty(value = "员工应发工资")
     private BigDecimal staffSalary;
+    /**
+     * 绩效评级
+     */
+    @ApiModelProperty(value = "绩效评级")
+    private String achievementsRating;
 
 
 }

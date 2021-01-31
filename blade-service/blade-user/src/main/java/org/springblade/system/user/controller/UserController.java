@@ -115,7 +115,6 @@ public class UserController {
 	/**
 	 * 新增或修改
 	 */
-	@Transactional
 	@PostMapping("/submit")
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入User")

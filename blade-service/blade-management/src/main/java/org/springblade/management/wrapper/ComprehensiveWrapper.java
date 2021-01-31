@@ -25,7 +25,7 @@ import org.springblade.management.vo.ComprehensiveVO;
  * 包装类,返回视图层所需的字段
  *
  * @author Blade
- * @since 2021-01-08
+ * @since 2021-01-31
  */
 public class ComprehensiveWrapper extends BaseEntityWrapper<Comprehensive, ComprehensiveVO>  {
 

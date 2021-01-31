@@ -48,4 +48,8 @@
         </where>
     </select>
 
+    <select id="getMonth" resultMap="achievementsResultMap">
+        SELECT * FROM `blade_achievements` WHERE DATE_FORMAT( create_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+    </select>
+
 </mapper>

@@ -16,6 +16,7 @@
 package org.springblade.management.mapper;
 
 import org.springblade.management.entity.Achievements;
+import org.springblade.management.entity.Comprehensive;
 import org.springblade.management.vo.AchievementsVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -46,5 +47,14 @@ public interface AchievementsMapper extends BaseMapper<Achievements> {
 	 * @return
 	 */
 	List<Achievements> selectAll(Achievements achievements);
+
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param achievements
+	 * @return
+	 */
+	List<Achievements> getMonth();
 
 }

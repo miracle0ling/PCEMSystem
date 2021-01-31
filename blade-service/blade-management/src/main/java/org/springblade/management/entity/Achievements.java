@@ -18,6 +18,7 @@ package org.springblade.management.entity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
 
@@ -39,72 +40,72 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel(value = "Achievements对象", description = "Achievements对象")
 public class Achievements implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	@JsonSerialize(using = ToStringSerializer.class)
-  @TableId(value = "id", type = IdType.AUTO)
-  private Long id;
-    /**
-     * 项目数量
-     */
-    @ApiModelProperty(value = "项目数量")
-    private Integer projectAmount;
-    /**
-     * 项目完成度
-     */
-    @ApiModelProperty(value = "项目完成度")
-    private Integer projectCompletion;
-    /**
-     * 项目缺陷度
-     */
-    @ApiModelProperty(value = "项目缺陷度")
-    private Integer projectDefect;
-    /**
-     * 项目修改完成度
-     */
-    @ApiModelProperty(value = "项目修改完成度")
-    private Integer projectModify;
-    /**
-     * 项目计划完成度
-     */
-    @ApiModelProperty(value = "项目计划完成度")
-    private Integer projectPlan;
-    /**
-     * 创建时间
-     */
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-    /**
-     * 备注
-     */
-    @ApiModelProperty(value = "备注")
-    private String remark;
-    /**
-     * 员工id
-     */
+	@TableId(value = "id", type = IdType.AUTO)
+	private Long id;
+	/**
+	 * 项目数量
+	 */
+	@ApiModelProperty(value = "项目数量")
+	private Integer projectAmount;
+	/**
+	 * 项目完成度
+	 */
+	@ApiModelProperty(value = "项目完成度")
+	private Integer projectCompletion;
+	/**
+	 * 项目缺陷度
+	 */
+	@ApiModelProperty(value = "项目缺陷度")
+	private Integer projectDefect;
+	/**
+	 * 项目修改完成度
+	 */
+	@ApiModelProperty(value = "项目修改完成度")
+	private Integer projectModify;
+	/**
+	 * 项目计划完成度
+	 */
+	@ApiModelProperty(value = "项目计划完成度")
+	private Integer projectPlan;
+	/**
+	 * 创建时间
+	 */
+	@ApiModelProperty(value = "创建时间")
+	private LocalDateTime createTime;
+	/**
+	 * 备注
+	 */
+	@ApiModelProperty(value = "备注")
+	private String remark;
+	/**
+	 * 员工id
+	 */
 	@JsonSerialize(using = ToStringSerializer.class)
-    @ApiModelProperty(value = "员工id")
-    private Long staffId;
-    /**
-     * 员工姓名
-     */
-    @ApiModelProperty(value = "员工姓名")
-    private String staffName;
-    /**
-     * 是否已删除
-     */
-    @ApiModelProperty(value = "是否已删除")
-    private Integer isDeleted;
-    /**
-     * 评分
-     */
-    @ApiModelProperty(value = "评分")
-    private Integer score;
-    /**
-     * 评级
-     */
-    @ApiModelProperty(value = "评级")
-    private String rating;
+	@ApiModelProperty(value = "员工id")
+	private Long staffId;
+	/**
+	 * 员工姓名
+	 */
+	@ApiModelProperty(value = "员工姓名")
+	private String staffName;
+	/**
+	 * 是否已删除
+	 */
+	@ApiModelProperty(value = "是否已删除")
+	private Integer isDeleted;
+	/**
+	 * 评分
+	 */
+	@ApiModelProperty(value = "评分")
+	private Integer score;
+	/**
+	 * 评级
+	 */
+	@ApiModelProperty(value = "评级")
+	private String rating;
 
 
 }

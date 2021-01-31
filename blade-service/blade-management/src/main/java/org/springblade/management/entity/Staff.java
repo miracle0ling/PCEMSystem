@@ -18,6 +18,8 @@ package org.springblade.management.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -40,6 +42,7 @@ public class Staff extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
+	@JsonSerialize(using = ToStringSerializer.class)
   @TableId(value = "id", type = IdType.AUTO)
   private Long id;
     /**
@@ -75,11 +78,13 @@ public class Staff extends BaseEntity {
     /**
      * 系统人员id
      */
+	@JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "系统人员id")
     private Long userId;
     /**
      * 系统人员权限id
      */
+	@JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "系统人员权限id")
     private Long roleId;
 

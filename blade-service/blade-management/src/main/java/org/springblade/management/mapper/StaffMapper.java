@@ -19,6 +19,8 @@ import org.springblade.management.entity.Staff;
 import org.springblade.management.vo.StaffVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -46,5 +48,14 @@ public interface StaffMapper extends BaseMapper<Staff> {
 	 * @return
 	 */
 	void addNew(Staff staff);
+
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param staff
+	 * @return
+	 */
+	Staff selectByStaffId(Long staffId);
 
 }

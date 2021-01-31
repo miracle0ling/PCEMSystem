@@ -60,4 +60,13 @@ public interface VocationMapper extends BaseMapper<Vocation> {
 	 */
 	List<Vocation> selectAll(Vocation vocation);
 
+	/**
+	 * 自定义分页
+	 *
+	 * @param page
+	 * @param vocation
+	 * @return
+	 */
+	Vocation getMonthById(Long id);
+
 }

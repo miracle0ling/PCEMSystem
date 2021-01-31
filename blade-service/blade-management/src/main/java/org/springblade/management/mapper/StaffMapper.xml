@@ -25,7 +25,11 @@
         insert into blade_staff
             (staff_name,base_salary,performance_salary,marriage_leave,maternity_leave,overtime_leave,user_id,role_id)
         values
-            (#{staffName},#{baseSalary},#{performanceSalary},#{marriageLeave},#{maternityLeave},#{overtimeLeave},(SELECT LAST_INSERT_ID()),#{roleId})
+            (#{staffName},#{baseSalary},#{performanceSalary},#{marriageLeave},#{maternityLeave},#{overtimeLeave},(SELECT id from blade_user order by create_time desc limit 1),#{roleId})
     </insert>
+
+    <select id="selectByStaffId" resultMap="staffResultMap" parameterType="java.lang.Long">
+        select * from blade_staff where user_id = #{staffId}
+    </select>
 
 </mapper>
