@@ -53,7 +53,7 @@ public class StaffServiceImpl extends BaseServiceImpl<StaffMapper, Staff> implem
 
 	@Override
 	public Staff selectById (Long staffid) {
-		return staffMapper.selectById(staffid);
+		return staffMapper.selectByStaffId(staffid);
 	}
 
 

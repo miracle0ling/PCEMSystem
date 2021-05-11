@@ -69,48 +69,58 @@ public class ComprehensiveServiceImpl extends BaseServiceImpl<ComprehensiveMappe
 	@Override
 	public Boolean generateSalary() {
 		List<Comprehensive> result = new ArrayList<>();
+		//本月的信息
 		List<Achievements> month = achievementsMapper.getMonth();
+		//本月最后一天
 		LocalDateTime time = LocalDateTime.of(LocalDate.from(LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth())), LocalTime.MAX);
 		try {
-			for (Achievements i :
-				month) {
+			for (Achievements i : month) {
 				Comprehensive comprehensive = new Comprehensive();
 				Staff staff = staffMapper.selectByStaffId(i.getStaffId());
-				Vocation vocationMonth = vocationMapper.getMonthById(i.getStaffId());
+				//本月已处理的信息
+//				Vocation vocationMonth = vocationMapper.getMonthById(i.getStaffId());
 				Integer overtimeLeave = staff.getOvertimeLeave();
 				Integer days = new Integer(0);
-				if (vocationMonth!=null){
-					if (vocationMonth.getEndTime().isAfter(time)){
-						days = (int) (Duration.between(vocationMonth.getBeginTime(), time).toDays());
-						Integer overdays = (int)(Duration.between(vocationMonth.getEndTime(), time).toDays());
-						if (staff.getOvertimeLeave()<0){
-							days-=overtimeLeave;
-							overtimeLeave = overdays;
-						}else {
-							if (days>overtimeLeave){
-								days-=overtimeLeave;
-								overtimeLeave = overdays;
-							}else {
-								overtimeLeave=overtimeLeave-(days-overdays);
-							}
-						}
-					}else {
-						days = (int) (Duration.between(vocationMonth.getBeginTime(), vocationMonth.getEndTime()).toDays());
-						if (staff.getOvertimeLeave()<0){
-							days-=overtimeLeave;
-							overtimeLeave = (int) (Duration.between(vocationMonth.getEndTime(), time).toDays());
-						}else {
-							if (days>overtimeLeave){
-								days-=overtimeLeave;
-								overtimeLeave = 0;
-							}else {
-								overtimeLeave-=days;
-							}
-						}
-					}
-					staff.setOvertimeLeave(overtimeLeave);
+				if (overtimeLeave<0){
+					days = Math.abs(overtimeLeave);
+					staff.setOvertimeLeave(0);
 					staffService.saveOrUpdate(staff);
+				}else {
+					days = 0;
 				}
+//				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+days);
+//				if (vocationMonth!=null){
+//					if (vocationMonth.getEndTime().isAfter(time)){
+//						days = (int) (Duration.between(vocationMonth.getBeginTime(), time).toDays());
+//						Integer overdays = (int)(Duration.between(vocationMonth.getEndTime(), time).toDays());
+//						if (staff.getOvertimeLeave()<0){
+//							days-=overtimeLeave;
+//							overtimeLeave = overdays;
+//						}else {
+//							if (days>overtimeLeave){
+//								days-=overtimeLeave;
+//								overtimeLeave = overdays;
+//							}else {
+//								overtimeLeave=overtimeLeave-(days-overdays);
+//							}
+//						}
+//					}else {
+//						days = (int) (Duration.between(vocationMonth.getBeginTime(), vocationMonth.getEndTime()).toDays());
+//						if (staff.getOvertimeLeave()<0){
+//							days-=overtimeLeave;
+//							overtimeLeave = (int) (Duration.between(vocationMonth.getEndTime(), time).toDays());
+//						}else {
+//							if (days>overtimeLeave){
+//								days-=overtimeLeave;
+//								overtimeLeave = 0;
+//							}else {
+//								overtimeLeave-=days;
+//							}
+//						}
+//					}
+//					staff.setOvertimeLeave(overtimeLeave);
+//					staffService.saveOrUpdate(staff);
+//				}
 				BigDecimal pro = calculatePerfomance(i.getRating());
 				BigDecimal baseSalary = staff.getBaseSalary();
 	//			工作天数

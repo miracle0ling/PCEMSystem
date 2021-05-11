@@ -57,4 +57,8 @@ public class VocationServiceImpl extends ServiceImpl<VocationMapper, Vocation> i
 		return vocationMapper.selectAll(vocation);
 	}
 
+	@Override
+	public List<Vocation> selectByIds(List<Long> ids) {
+		return vocationMapper.selectByIds(ids);
+	}
 }

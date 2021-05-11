@@ -57,4 +57,7 @@ public interface IVocationService extends IService<Vocation> {
 	 */
 	List<Vocation> selectAll(Vocation vocation);
 
+	List<Vocation> selectByIds(List<Long> ids);
+
+
 }

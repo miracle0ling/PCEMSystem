@@ -69,4 +69,11 @@ public interface VocationMapper extends BaseMapper<Vocation> {
 	 */
 	Vocation getMonthById(Long id);
 
+	/**
+	 * 通过id集合查找
+	 * @param vocation
+	 * @return
+	 */
+	List<Vocation> selectByIds(@Param("ids") List<Long> ids);
+
 }

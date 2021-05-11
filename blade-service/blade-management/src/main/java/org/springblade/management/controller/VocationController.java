@@ -28,8 +28,10 @@ import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.management.entity.Staff;
 import org.springblade.management.service.IStaffService;
 import org.springblade.system.user.feign.IUserClient;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.springblade.management.entity.Vocation;
@@ -164,10 +166,28 @@ public class VocationController extends BladeController {
 	/**
 	 * 审批
 	 */
+	@Transactional
 	@PostMapping("/review")
 	@ApiOperationSupport(order = 7)
 	@ApiOperation(value = "删除", notes = "传入ids")
 	public R review(@ApiParam(value = "主键集合", required = true) @RequestParam String ids,@RequestParam Integer type) {
+		if (type==1){
+			List<Vocation> vocations = vocationService.selectByIds(Func.toLongList(ids));
+			for (Vocation vocation : vocations) {
+				if (vocation.getType() == 2) {
+					int i = (int) (vocation.getEndTime().toLocalDate().toEpochDay() - vocation.getBeginTime().toLocalDate().toEpochDay());
+					Staff staff = staffService.selectById(vocation.getStaffId());
+					staff.setOvertimeLeave(staff.getOvertimeLeave()+i);
+					staffService.saveOrUpdate(staff);
+				}else if (vocation.getType() == 1){
+					int i = (int) (vocation.getEndTime().toLocalDate().toEpochDay() - vocation.getBeginTime().toLocalDate().toEpochDay());
+					Staff staff = staffService.selectById(vocation.getStaffId());
+					staff.setOvertimeLeave(staff.getOvertimeLeave()-i);
+					staffService.saveOrUpdate(staff);
+				}
+			}
+		}
+
 		return R.status(vocationService.reviewByIds(Func.toLongList(ids),type));
 	}
 
