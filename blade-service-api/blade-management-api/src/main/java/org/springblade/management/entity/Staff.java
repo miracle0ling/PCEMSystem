@@ -58,15 +58,10 @@ public class Staff extends BaseEntity {
     @ApiModelProperty(value = "绩效工资")
     private BigDecimal performanceSalary;
     /**
-     * 婚假
+     * 公积金
      */
-    @ApiModelProperty(value = "婚假")
-    private Integer marriageLeave;
-    /**
-     * 产假
-     */
-    @ApiModelProperty(value = "产假")
-    private Integer maternityLeave;
+    @ApiModelProperty(value = "公积金")
+    private BigDecimal providentFund;
     /**
      * 换休
      */
@@ -83,5 +78,9 @@ public class Staff extends BaseEntity {
     @ApiModelProperty(value = "系统人员权限id")
     private Long roleId;
 
+	@ApiModelProperty(value = "部门id")
+	private String deptId;
 
+	@ApiModelProperty(value = "工号")
+	private String staffNumber;
 }

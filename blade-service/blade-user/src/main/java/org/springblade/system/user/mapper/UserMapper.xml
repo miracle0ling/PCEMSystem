@@ -23,6 +23,12 @@
         <result column="sex" property="sex"/>
         <result column="role_id" property="roleId"/>
         <result column="dept_id" property="deptId"/>
+        <result column="person_id" property="personId"/>
+        <result column="home_town" property="homeTown"/>
+        <result column="marital_status" property="maritalStatus"/>
+        <result column="nationality" property="nationality"/>
+        <result column="political_status" property="politicalStatus"/>
+        <result column="highest_education" property="highestEducation"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->

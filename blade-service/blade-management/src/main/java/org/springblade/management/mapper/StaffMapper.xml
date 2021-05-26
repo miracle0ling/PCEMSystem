@@ -9,11 +9,12 @@
         <result column="staff_name" property="staffName"/>
         <result column="base_salary" property="baseSalary"/>
         <result column="performance_salary" property="performanceSalary"/>
-        <result column="marriage_leave" property="marriageLeave"/>
-        <result column="maternity_leave" property="maternityLeave"/>
+        <result column="provident_fund" property="providentFund"/>
         <result column="overtime_leave" property="overtimeLeave"/>
         <result column="user_id" property="userId"/>
         <result column="role_id" property="roleId"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="staff_number" property="staffNumber"/>
     </resultMap>
 
 
@@ -23,9 +24,9 @@
 
     <insert id="addNew" parameterType="org.springblade.management.entity.Staff">
         insert into blade_staff
-            (staff_name,base_salary,performance_salary,marriage_leave,maternity_leave,overtime_leave,user_id,role_id)
+            (staff_name,base_salary,performance_salary,provident_fund,overtime_leave,user_id,role_id,dept_id,staff_number)
         values
-            (#{staffName},#{baseSalary},#{performanceSalary},#{marriageLeave},#{maternityLeave},#{overtimeLeave},(SELECT id from blade_user order by create_time desc limit 1),#{roleId})
+            (#{staffName},#{baseSalary},#{performanceSalary},#{providentFund},#{overtimeLeave},(SELECT id from blade_user order by create_time desc limit 1),#{roleId},#{deptId},#{staffNumber})
     </insert>
 
     <select id="selectByStaffId" resultMap="staffResultMap" parameterType="java.lang.Long">

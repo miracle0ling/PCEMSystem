@@ -25,6 +25,7 @@ import javax.validation.Valid;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.BladeUser;
+import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,12 @@ public class StaffController extends BladeController {
     @ApiOperationSupport(order = 2)
 	@ApiOperation(value = "分页", notes = "传入staff")
 	public R<IPage<StaffVO>> list(Staff staff, Query query) {
+		String userRole = SecureUtil.getUserRole();
+		if (userRole.equals("manager")){
+			Long userId = SecureUtil.getUserId();
+			Staff staffTemp = staffService.selectById(userId);
+			staff.setDeptId(staffTemp.getDeptId());
+		}
 		IPage<Staff> pages = staffService.page(Condition.getPage(query), Condition.getQueryWrapper(staff));
 		return R.data(StaffWrapper.build().pageVO(pages));
 	}

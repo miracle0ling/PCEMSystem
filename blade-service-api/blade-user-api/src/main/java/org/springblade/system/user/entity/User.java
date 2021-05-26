@@ -101,5 +101,14 @@ public class User extends TenantEntity {
 	 */
 	private String postId;
 
-
+	/**
+	 * 身份证号
+	 */
+	private String personId;
+	private String homeTown;
+	private String maritalStatus;
+	private String nationality;
+	private String politicalStatus;
+	private String highestEducation;
+	private String staffNumber;
 }

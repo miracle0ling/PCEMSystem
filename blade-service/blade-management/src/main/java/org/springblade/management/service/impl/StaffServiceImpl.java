@@ -46,6 +46,7 @@ public class StaffServiceImpl extends BaseServiceImpl<StaffMapper, Staff> implem
 		try {
 			staffMapper.addNew(newStaff);
 		}catch (Exception e){
+			System.out.println(e);
 			return false;
 		}
 		return true;

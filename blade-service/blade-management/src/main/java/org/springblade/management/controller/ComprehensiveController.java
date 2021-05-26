@@ -27,6 +27,8 @@ import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
+import org.springblade.management.entity.Staff;
+import org.springblade.management.service.IStaffService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -50,6 +52,7 @@ import java.util.List;
 public class ComprehensiveController extends BladeController {
 
 	private IComprehensiveService comprehensiveService;
+	private IStaffService staffService;
 
 	/**
 	* 详情
@@ -73,6 +76,10 @@ public class ComprehensiveController extends BladeController {
 		if(userRole.equals("staff")){
 			Long userId = SecureUtil.getUserId();
 			comprehensive.setStaffId(userId);
+		}else if (userRole.equals("manager")){
+			Long userId = SecureUtil.getUserId();
+			Staff staff = staffService.selectById(userId);
+			comprehensive.setDeptId(staff.getDeptId());
 		}
 		IPage<Comprehensive> pages = comprehensiveService.page(Condition.getPage(query), Condition.getQueryWrapper(comprehensive));
 		return R.data(ComprehensiveWrapper.build().pageVO(pages));

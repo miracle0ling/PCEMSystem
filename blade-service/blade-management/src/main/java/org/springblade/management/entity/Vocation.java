@@ -93,5 +93,10 @@ public class Vocation implements Serializable {
 	@ApiModelProperty(value = "是否已删除")
 	private Integer isDeleted;
 
+	@ApiModelProperty(value = "部门id")
+	private String deptId;
+
+	@ApiModelProperty(value = "工号")
+	private String staffNumber;
 
 }

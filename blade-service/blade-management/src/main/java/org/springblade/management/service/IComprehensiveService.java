@@ -46,6 +46,6 @@ public interface IComprehensiveService extends BaseService<Comprehensive> {
 	 * @param comprehensive
 	 * @return
 	 */
-	Boolean generateSalary();
+	boolean generateSalary();
 
 }

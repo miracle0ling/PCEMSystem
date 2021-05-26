@@ -60,6 +60,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 控制器
@@ -119,15 +120,28 @@ public class UserController {
 	@ApiOperationSupport(order = 4)
 	@ApiOperation(value = "新增或修改", notes = "传入User")
 	public R submit(@Valid @RequestBody User user) {
-		userService.submit(user);
+		user.setTenantId("000000");
 		Staff newStaff = new Staff();
 		newStaff.setBaseSalary(new BigDecimal(0));
 		newStaff.setStaffName(user.getRealName());
-		newStaff.setMarriageLeave(0);
-		newStaff.setMaternityLeave(0);
+		newStaff.setPerformanceSalary(new BigDecimal(0.7));
 		newStaff.setOvertimeLeave(0);
 		newStaff.setPerformanceSalary(new BigDecimal(0));
 		newStaff.setRoleId(Long.parseLong(user.getRoleId()));
+		newStaff.setDeptId(user.getDeptId());
+		newStaff.setProvidentFund(BigDecimal.valueOf(0.7));
+		System.out.println(newStaff.getDeptId());
+		String dp = new String();
+		switch (newStaff.getDeptId()){
+			case "1123598813738675202":{dp = "JS";break;}
+			case "1123598813738675203":{dp = "RS";break;}
+			case "1123598813738675204":{dp = "SC";break;}
+		}
+		System.out.println(dp);
+		newStaff.setStaffNumber(dp+(new Random().nextInt(900000)+100000));
+		System.out.println(newStaff.getStaffNumber());
+		user.setStaffNumber(dp+(new Random().nextInt(900000)+100000));
+		userService.submit(user);
 		return R.status(staffClient.addStaff(newStaff));
 	}
 

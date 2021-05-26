@@ -107,5 +107,22 @@ public class Achievements implements Serializable {
 	@ApiModelProperty(value = "评级")
 	private String rating;
 
+	@ApiModelProperty(value = "部门id")
+	private String deptId;
+
+	@ApiModelProperty(value = "具体内容")
+	private String projectMain;
+
+	@ApiModelProperty(value = "项目描述")
+	private String projectDesc;
+
+	@ApiModelProperty(value = "项目名称")
+	private String projectName;
+
+	@ApiModelProperty(value = "状态")
+	private Integer status;
+
+	@ApiModelProperty(value = "工号")
+	private String staffNumber;
 
 }

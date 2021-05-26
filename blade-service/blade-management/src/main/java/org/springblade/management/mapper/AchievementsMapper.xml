@@ -17,6 +17,9 @@
         <result column="is_deleted" property="isDeleted"/>
         <result column="score" property="score"/>
         <result column="rating" property="rating"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="status" property="status"/>
+        <result column="staff_number" property="staffNumber"/>
     </resultMap>
 
 
@@ -36,6 +39,12 @@
             <if test="staffId!=null">
                 and staff_id = #{staffId}
             </if>
+            <if test="staffNumber!=null">
+                and staff_number = #{staffNumber}
+            </if>
+            <if test="deptId!=null">
+                and dept_id = #{deptId}
+            </if>
             <if test="staffName!=null">
                 and staff_name = #{staffName}
             </if>
@@ -49,7 +58,7 @@
     </select>
 
     <select id="getMonth" resultMap="achievementsResultMap">
-        SELECT * FROM `blade_achievements` WHERE DATE_FORMAT( create_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' )
+        SELECT * FROM `blade_achievements` WHERE DATE_FORMAT( create_time, '%Y%m' ) = DATE_FORMAT( CURDATE( ) , '%Y%m' ) and is_deleted = 0 and status = 0
     </select>
 
 </mapper>

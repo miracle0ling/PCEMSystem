@@ -18,7 +18,6 @@ package org.springblade.management.service.impl;
 import org.springblade.management.entity.Achievements;
 import org.springblade.management.entity.Comprehensive;
 import org.springblade.management.entity.Staff;
-import org.springblade.management.entity.Vocation;
 import org.springblade.management.mapper.AchievementsMapper;
 import org.springblade.management.mapper.StaffMapper;
 import org.springblade.management.mapper.VocationMapper;
@@ -32,7 +31,6 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.math.BigDecimal;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -67,7 +65,7 @@ public class ComprehensiveServiceImpl extends BaseServiceImpl<ComprehensiveMappe
 	}
 
 	@Override
-	public Boolean generateSalary() {
+	public boolean generateSalary() {
 		List<Comprehensive> result = new ArrayList<>();
 		//本月的信息
 		List<Achievements> month = achievementsMapper.getMonth();
@@ -75,62 +73,69 @@ public class ComprehensiveServiceImpl extends BaseServiceImpl<ComprehensiveMappe
 		LocalDateTime time = LocalDateTime.of(LocalDate.from(LocalDateTime.now().with(TemporalAdjusters.lastDayOfMonth())), LocalTime.MAX);
 		try {
 			for (Achievements i : month) {
+				//将状态改为已生成工资
+				i.setStatus(1);
+				achievementsMapper.updateById(i);
+
 				Comprehensive comprehensive = new Comprehensive();
 				Staff staff = staffMapper.selectByStaffId(i.getStaffId());
 				//本月已处理的信息
 //				Vocation vocationMonth = vocationMapper.getMonthById(i.getStaffId());
+
 				Integer overtimeLeave = staff.getOvertimeLeave();
+				BigDecimal pro = calculatePerfomance(i.getRating());
+				BigDecimal baseSalary = staff.getBaseSalary();
+				//			工作天数
+				BigDecimal workdays;
+				BigDecimal basicResult = baseSalary;
 				Integer days = new Integer(0);
 				if (overtimeLeave<0){
 					days = Math.abs(overtimeLeave);
 					staff.setOvertimeLeave(0);
 					staffService.saveOrUpdate(staff);
+					workdays = getCurrentMonthDay().subtract(BigDecimal.valueOf(days));
+					basicResult = baseSalary.divide(getCurrentMonthDay(),2).multiply(workdays).add(pro.multiply(staff.getPerformanceSalary()));
 				}else {
-					days = 0;
+					basicResult = baseSalary.add(pro.multiply(staff.getPerformanceSalary()));
 				}
-//				System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+days);
-//				if (vocationMonth!=null){
-//					if (vocationMonth.getEndTime().isAfter(time)){
-//						days = (int) (Duration.between(vocationMonth.getBeginTime(), time).toDays());
-//						Integer overdays = (int)(Duration.between(vocationMonth.getEndTime(), time).toDays());
-//						if (staff.getOvertimeLeave()<0){
-//							days-=overtimeLeave;
-//							overtimeLeave = overdays;
-//						}else {
-//							if (days>overtimeLeave){
-//								days-=overtimeLeave;
-//								overtimeLeave = overdays;
-//							}else {
-//								overtimeLeave=overtimeLeave-(days-overdays);
-//							}
-//						}
-//					}else {
-//						days = (int) (Duration.between(vocationMonth.getBeginTime(), vocationMonth.getEndTime()).toDays());
-//						if (staff.getOvertimeLeave()<0){
-//							days-=overtimeLeave;
-//							overtimeLeave = (int) (Duration.between(vocationMonth.getEndTime(), time).toDays());
-//						}else {
-//							if (days>overtimeLeave){
-//								days-=overtimeLeave;
-//								overtimeLeave = 0;
-//							}else {
-//								overtimeLeave-=days;
-//							}
-//						}
-//					}
-//					staff.setOvertimeLeave(overtimeLeave);
-//					staffService.saveOrUpdate(staff);
-//				}
-				BigDecimal pro = calculatePerfomance(i.getRating());
-				BigDecimal baseSalary = staff.getBaseSalary();
-	//			工作天数
-				BigDecimal workdays = getCurrentMonthDay().subtract(BigDecimal.valueOf(days));
-				BigDecimal salaryResult = baseSalary.divide(getCurrentMonthDay(), 2).multiply(workdays).add(pro.multiply(staff.getPerformanceSalary()));
+
+				System.out.println(basicResult);
+
+				BigDecimal salaryResult = basicResult;
+				//个税
+				if (basicResult.compareTo(BigDecimal.valueOf(85000)) > -1) {
+					basicResult = basicResult.subtract(BigDecimal.valueOf(85000)).multiply(BigDecimal.valueOf(0.55)).add(BigDecimal.valueOf(64160));
+				}else if (basicResult.compareTo(BigDecimal.valueOf(60000)) > -1){
+					basicResult = basicResult.subtract(BigDecimal.valueOf(60000)).multiply(BigDecimal.valueOf(0.65)).add(BigDecimal.valueOf(47910));
+				}else if (basicResult.compareTo(BigDecimal.valueOf(40000)) > -1){
+					basicResult = basicResult.subtract(BigDecimal.valueOf(40000)).multiply(BigDecimal.valueOf(0.7)).add(BigDecimal.valueOf(33910));
+				}else if (basicResult.compareTo(BigDecimal.valueOf(30000)) > -1){
+					basicResult = basicResult.subtract(BigDecimal.valueOf(30000)).multiply(BigDecimal.valueOf(0.75)).add(BigDecimal.valueOf(26410));
+				}else if (basicResult.compareTo(BigDecimal.valueOf(17000)) > -1){
+					basicResult = basicResult.subtract(BigDecimal.valueOf(17000)).multiply(BigDecimal.valueOf(0.8)).add(BigDecimal.valueOf(16010));
+				}else if (basicResult.compareTo(BigDecimal.valueOf(8000)) > -1){
+					basicResult = basicResult.subtract(BigDecimal.valueOf(8000)).multiply(BigDecimal.valueOf(0.9)).add(BigDecimal.valueOf(7910));
+				}else if (basicResult.compareTo(BigDecimal.valueOf(5000)) > -1){
+					basicResult = basicResult.subtract(BigDecimal.valueOf(5000)).multiply(BigDecimal.valueOf(0.97)).add(BigDecimal.valueOf(5000));
+				}
+
+				System.out.println(basicResult);
+				System.out.println(salaryResult);
+				//公积金
+				BigDecimal provident = salaryResult.multiply(staff.getProvidentFund());
+				if (provident.compareTo(BigDecimal.valueOf(28000)) > -1){
+					provident = BigDecimal.valueOf(28000);
+				}
+				System.out.println(provident);
+				salaryResult = basicResult.subtract(provident);
+
+				System.out.println(salaryResult);
 				comprehensive.setStaffSalary(salaryResult);
 				comprehensive.setStaffVocation(days);
 				comprehensive.setStaffId(i.getStaffId());
 				comprehensive.setAchievementsRating(i.getRating());
 				comprehensive.setStaffName(i.getStaffName());
+				comprehensive.setDeptId(i.getDeptId());
 				System.out.println(comprehensive);
 				saveOrUpdate(comprehensive);
 			}

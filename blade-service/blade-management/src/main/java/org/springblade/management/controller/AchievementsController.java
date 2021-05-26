@@ -15,29 +15,28 @@
  */
 package org.springblade.management.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
-import javax.validation.Valid;
-
+import org.springblade.core.boot.ctrl.BladeController;
 import org.springblade.core.mp.support.Condition;
 import org.springblade.core.mp.support.Query;
 import org.springblade.core.secure.utils.SecureUtil;
 import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.management.entity.Achievements;
-import org.springblade.management.wrapper.AchievementsWrapper;
-import org.springframework.web.bind.annotation.*;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import org.springblade.management.entity.Achievements;
+import org.springblade.management.entity.Staff;
+import org.springblade.management.service.IAchievementsService;
+import org.springblade.management.service.IStaffService;
 import org.springblade.management.vo.AchievementsVO;
 import org.springblade.management.wrapper.AchievementsWrapper;
-import org.springblade.management.service.IAchievementsService;
-import org.springblade.core.boot.ctrl.BladeController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +54,7 @@ import java.util.List;
 public class AchievementsController extends BladeController {
 
 	private IAchievementsService achievementsService;
+	private IStaffService staffService;
 
 	/**
 	* 详情
@@ -79,6 +79,10 @@ public class AchievementsController extends BladeController {
 		if(userRole.equals("staff")){
 			Long userId = SecureUtil.getUserId();
 			achievements.setStaffId(userId);
+		}else if (userRole.equals("manager")){
+			Long userId = SecureUtil.getUserId();
+			Staff staff = staffService.selectById(userId);
+			achievements.setDeptId(staff.getDeptId());
 		}
 
 		Integer size = query.getSize();
@@ -144,7 +148,10 @@ public class AchievementsController extends BladeController {
 	public R submit(@Valid @RequestBody Achievements achievements) {
 		if (achievements.getStaffId()==null){
 			Long userId = SecureUtil.getUserId();
+			Staff staff = staffService.selectById(userId);
+			achievements.setDeptId(staff.getDeptId());
 			achievements.setStaffId(userId);
+			achievements.setStaffNumber(staff.getStaffNumber());
 		}
 		if(achievements.getScore()!=null){
 			BigDecimal A = BigDecimal.valueOf(1.2);

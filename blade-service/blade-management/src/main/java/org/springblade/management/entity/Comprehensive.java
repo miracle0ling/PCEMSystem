@@ -18,6 +18,8 @@ package org.springblade.management.entity;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import org.springblade.core.mp.base.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
@@ -44,6 +46,7 @@ public class Comprehensive extends BaseEntity {
     /**
      * 员工id
      */
+	@JsonSerialize(using = ToStringSerializer.class)
     @ApiModelProperty(value = "员工id")
     private Long staffId;
     /**
@@ -67,5 +70,9 @@ public class Comprehensive extends BaseEntity {
     @ApiModelProperty(value = "绩效评级")
     private String achievementsRating;
 
+	@ApiModelProperty(value = "部门id")
+	private String deptId;
 
+	@ApiModelProperty(value = "工号")
+	private String staffNumber;
 }

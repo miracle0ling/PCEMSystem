@@ -30,6 +30,7 @@ import org.springblade.core.tool.api.R;
 import org.springblade.core.tool.utils.Func;
 import org.springblade.management.entity.Staff;
 import org.springblade.management.service.IStaffService;
+import org.springblade.system.user.entity.UserInfo;
 import org.springblade.system.user.feign.IUserClient;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +58,7 @@ public class VocationController extends BladeController {
 
 	private IVocationService vocationService;
 	private IStaffService staffService;
+	private IUserClient iUserClient;
 
 
 	/**
@@ -82,6 +84,10 @@ public class VocationController extends BladeController {
 		if(userRole.equals("staff")){
 			Long userId = SecureUtil.getUserId();
 			vocation.setStaffId(userId);
+		}else if (userRole.equals("manager")){
+			Long userId = SecureUtil.getUserId();
+			Staff staff = staffService.selectById(userId);
+			vocation.setDeptId(staff.getDeptId());
 		}
 
 		Integer size = query.getSize();
@@ -146,7 +152,10 @@ public class VocationController extends BladeController {
 	public R submit(@Valid @RequestBody Vocation vocation) {
 		if (vocation.getStaffId()==null){
 			Long userId = SecureUtil.getUserId();
+			Staff staff = staffService.selectById(userId);
+			vocation.setDeptId(staff.getDeptId());
 			vocation.setStaffId(userId);
+			vocation.setStaffNumber(staff.getStaffNumber());
 		}
 		return R.status(vocationService.saveOrUpdate(vocation));
 	}

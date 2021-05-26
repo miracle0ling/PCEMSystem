@@ -12,6 +12,8 @@
         <result column="staff_vocation" property="staffVocation"/>
         <result column="staff_salary" property="staffSalary"/>
         <result column="achievements_rating" property="achievementsRating"/>
+        <result column="dept_id" property="deptId"/>
+        <result column="staff_number" property="staffNumber"/>
     </resultMap>
 
 
